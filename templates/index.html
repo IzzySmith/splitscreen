@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+
+<style>
+.box{
+    width:50%;
+    float:left;
+    
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box"><iframe id="ifrm1" src="https://www.google.com" height="512" width="100%"></iframe></div>
+<div class="box"><iframe id="ifrm2" src="https://www.google.com" height="512" width="100%"></iframe></div>
+
+
+<script>
+(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
+l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
+l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
+(window,document,'script','Surfly');
+</script>
+
+<script>
+var settings = {widgetkey:'dd402bb4940b4cf3a855aaa371d11419'};
+
+window.addEventListener('DOMContentLoaded', function() {
+  Surfly.init(settings, function(init) {
+    if (init.success) {
+	Surfly.session({block_until_agent_joins: false}).startLeader("#ifrm1");
+/*	
+      Surfly.session({block_until_agent_joins: false})
+	.on('session_created', function(session) {
+	    console.log(session.followerLink);
+	    sessionStorage.setItem("followerLink", session.followerLink);
+	    console.log("leader "+session.leaderLink);
+	  })
+	.startLeader('#ifrm1');
+      console.log(sessionStorage.getItem("followerLink"));
+      // Surfly.session(null, sessionStorage.getItem("followerLink")).startFollower("#ifrm2");
+*/
+      }
+   });
+ });
+</script>
+
+   <script>
+
+    var request = new XMLHttpRequest();
+
+    request.open('POST', 'https://api.surfly-s1.com/v2/sessions/?api_key=33c092b9d4d6425e817f5140447e43da');
+
+    request.setRequestHeader('Content-Type', 'application/json');
+
+    request.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        var body = this.responseText;
+
+        var index = body.indexOf("leader_link");
+        var endPoint = body.indexOf("ip_follower");
+        sessionStorage.setItem("leaderLink", body.substring(index+14, endPoint-4));
+
+	var indexFollower = body.indexOf("follower_link");
+        var endPointFollower = body.indexOf("start_time");
+	sessionStorage.setItem("leaderLink", body.substring(indexFollower+14, endPointFollower-4));
+      }
+    };
+
+   var body = {
+     'url': document.getElementById("ifrm1").src
+    };
+
+   request.send(JSON.stringify(body));
+
+   document.getElementById("ifrm1").src = sessionStorage.getItem("leaderLink");
+
+   </script>
+
+
+</body>
+
+</html>
