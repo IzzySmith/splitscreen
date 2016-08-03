@@ -17,8 +17,8 @@
 
 <body>
 
-<div class="box"><iframe id="ifrm1" src="https://www.google.com" height="512" width="100%"></iframe></div>
-<div class="box"><iframe id="ifrm2" src="" height="512" width="100%" style="background: #FFFFFF;"></iframe></div>
+<div class="box"><iframe id="ifrm1" src="./first_frame" height="512" width="100%"></iframe></div>
+<div class="box"><iframe id="ifrm2" src="" height="512" width="100%" style="background: #000000;"></iframe></div>
 
 
 <script>
@@ -37,12 +37,26 @@ window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
        // start a surfly session with the red banner removed and on the url of the iframe
-       // with these conditions, the session starts in the first iframe, on the url, however still shows 2 iframes in one
-       Surfly.session({block_until_agent_joins: false, url: ifrm1_url}).startLeader('#ifrm1');
-       console.log("the session started on ", ifrm1_url);
-      }
-   });
- });
+       // Surfly.session({block_until_agent_joins: false, url: ifrm1_url}).startLeader('#ifrm1');
+       // console.log('the follower link is: ', Surfly.session().followerLink());
+       // Surfly.session({block_until_agent_joins: false})
+//	.on('session_created', function(session) {
+            // get the follower link and store this
+//	    console.log("the follower link is: ", session.followerLink);
+	    //sessionStorage.setItem("followerLink", session.followerLink);
+            // get the leader link and store this
+	   // console.log("the leader link is: ", session.leaderLink);
+            //sessionStorage.setItem("leaderLink", session.leaderLink);
+	 // })
+	//.startLeader('#ifrm1');
+     // this will show the whole page in one iframe again
+     // document.getElementById('ifrm1').src = sessionStorage.getItem("leaderLink");
+     }
+  });
+});
+
+//ec006650588b4726ac397ab5e56c033a
+
 </script>
 
 </body>

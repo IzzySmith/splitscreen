@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+
+
+<script>
+(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
+l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
+l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
+(window,document,'script','Surfly');
+</script>
+
+<script>
+var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
+window.addEventListener('DOMContentLoaded', function() {
+  Surfly.init(settings, function(init) {
+    if (init.success) {
+      }
+   });
+ });
+</script>
+
+</head>
+
+<body>
+
+<button onclick="sessionStart()">Start session</button>
+
+<script>
+  function sessionStart() {
+     // starts a session with the specified options
+     Surfly.session({block_until_agent_joins: false}).startLeader();
+   }
+</script>
+
+</body>
+</html> 
