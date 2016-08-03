@@ -28,8 +28,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </head>
 
-https://infinite-thicket-74820.herokuapp.com/first_frame
-
 <body>
 
 <button onclick="sessionStart()">Start session</button>
@@ -43,16 +41,21 @@ https://infinite-thicket-74820.herokuapp.com/first_frame
         var followerLink = session.followerLink
         var linkIndex = followerLink.indexOf(".com");
         // store the ID
-        sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+5));
+        sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+4));
         // get the page url
         var pageUrl = document.location.href
         var pageIndex = pageUrl.indexOf("https");
         var pageEnd = pageUrl.indexOf("first_frame");
         // store the page url
         sessionStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
+        // append the page url to the session id
+        var res = sessionStorage.getItem("fullPageUrl").concat(sessionStorage.getItem("sessionID"));
+        // save so we can use later
+        sessionStorage.setItem("saveUrl", res);
         // check that we have what we want 
          console.log('the session id is: ', sessionStorage.getItem("sessionID"));
          console.log('the page url is: ', sessionStorage.getItem("fullPageUrl"));
+         console.log('the concatinated result is: ', res);
         }).startLeader();
    }
 </script>
