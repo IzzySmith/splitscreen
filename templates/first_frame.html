@@ -28,6 +28,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
 </head>
 
+https://infinite-thicket-74820.herokuapp.com/first_frame
+
 <body>
 
 <button onclick="sessionStart()">Start session</button>
@@ -42,7 +44,15 @@ window.addEventListener('DOMContentLoaded', function() {
         var linkIndex = followerLink.indexOf(".com");
         // store the ID
         sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+5));
+        // get the page url
+        var pageUrl = document.location.href
+        var pageIndex = pageUrl.indexOf("https");
+        var pageEnd = pageUrl.indexOf("first_frame");
+        // store the page url
+        sessionStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
+        // check that we have what we want 
          console.log('the session id is: ', sessionStorage.getItem("sessionID"));
+         console.log('the page url is: ', sessionStorage.getItem("fullPageUrl"));
         }).startLeader();
    }
 </script>
