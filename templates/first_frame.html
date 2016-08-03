@@ -5,7 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Untitled Document</title>
 
-
 <script>
 (function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
 l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
@@ -38,7 +37,12 @@ window.addEventListener('DOMContentLoaded', function() {
      // starts a session with the specified options
      Surfly.session({block_until_agent_joins: false})
        .on('session_created', function(session) {
-         console.log('the follower link in the function is: ', session.followerLink);
+        // get the session id from the follower link
+        var followerLink = session.followerLink
+        var linkIndex = followerLink.indexOf(".com");
+        // store the ID
+        sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+5));
+         console.log('the session id is: ', sessionStorage.getItem("sessionID"));
         }).startLeader();
    }
 </script>
