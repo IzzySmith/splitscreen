@@ -18,7 +18,11 @@ var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
-      }
+     // console.log("initialisation successful");
+     // Surfly.session().on('session_started', function(session) {
+     //  console.log("the follower link is ", session.followerLink);
+     //  })
+     }
    });
  });
 </script>
@@ -32,7 +36,10 @@ window.addEventListener('DOMContentLoaded', function() {
 <script>
   function sessionStart() {
      // starts a session with the specified options
-     Surfly.session({block_until_agent_joins: false}).startLeader();
+     Surfly.session({block_until_agent_joins: false})
+       .on('session_created', function(session) {
+         console.log('the follower link in the function is: ', session.followerLink);
+        }).startLeader();
    }
 </script>
 
