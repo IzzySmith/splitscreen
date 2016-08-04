@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Untitled Document</title>
+
+</head>
+
+<body>
+
+<div class="box"><iframe id="ifrm1" src="" height="512" width="100%"></iframe></div>
+<div class="box"><iframe id="ifrm2" src="" height="512" width="100%" style="background: #000000;"></iframe></div>
+
+<script>
+(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
+l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
+l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
+(window,document,'script','Surfly');
+</script>
+
+<script>
+var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a', block_until_agent_joins: false};
+
+window.addEventListener('DOMContentLoaded', function() {
+  Surfly.init(settings, function(init) {
+    if (init.success) {
+      }
+   });
+ });
+</script>
+
+<script>
+var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a', block_until_agent_joins: false};
+
+window.addEventListener('DOMContentLoaded', function() {
+  Surfly.init(settings, function(init) {
+    if (init.success) {
+       // get the current url
+       pageUrl  = document.location.href
+       // check what we have 
+       console.log("the page url is: ", pageUrl);
+       // set the index at the end of the url
+       var idIndex = pageUrl.indexOf(".com");
+       // extract the session ID
+       var sessionID = pageUrl.substring(idIndex+4);
+       // retrieve the origin url 
+       console.log("the original url is: ", sessionStorage.getItem('originUrl'));
+       // check that we have the id
+       console.log("the session id is: ", sessionID);
+       // append the id to the origin
+       var fullUrl =  "https://surfly-s1.com".concat(sessionID)
+       console.log("the full url is: ", fullUrl);
+       // open the follower link in the iframe 
+       document.getElementById('ifrm1').src = fullUrl
+      }
+   });
+ });
+</script>
+
+<body>
+<p> hello :) </p>
+</body>
+
+</html>
+

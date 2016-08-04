@@ -8,7 +8,7 @@ def index():
 
 @app.route('/<session_id>')
 def index_session_id(session_id):
-   return '<p>hello</p>'
+   return render_template('follower_side.html')
 
 
 @app.route('/first_frame')
