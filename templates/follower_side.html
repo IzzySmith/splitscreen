@@ -5,12 +5,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Untitled Document</title>
 
+<style>
+.box{
+    width:50%;
+    float:left;
+    
+}
+</style>
+
 </head>
 
 <body>
 
 <div class="box"><iframe id="ifrm1" src="" height="512" width="100%"></iframe></div>
-<div class="box"><iframe id="ifrm2" src="" height="512" width="100%" style="background: #000000;"></iframe></div>
+<div class="box"><iframe id="ifrm2" src="./follower_leader_frame" height="512" width="100%"></iframe></div>
 
 <script>
 (function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
@@ -25,42 +33,26 @@ var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a', block_until_agent_
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
-      }
-   });
- });
-</script>
-
-<script>
-var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a', block_until_agent_joins: false};
-
-window.addEventListener('DOMContentLoaded', function() {
-  Surfly.init(settings, function(init) {
-    if (init.success) {
        // get the current url
        pageUrl  = document.location.href
        // check what we have 
        console.log("the page url is: ", pageUrl);
        // set the index at the end of the url
-       var idIndex = pageUrl.indexOf(".com");
+       var idIndex = pageUrl.indexOf("screen");
        // extract the session ID
-       var sessionID = pageUrl.substring(idIndex+4);
-       // retrieve the origin url 
-       console.log("the original url is: ", sessionStorage.getItem('originUrl'));
-       // check that we have the id
+       var sessionID = pageUrl.substring(idIndex+6);
        console.log("the session id is: ", sessionID);
+       // retrieve the origin url - find out why this doesnt work
+       console.log("the original url is: ", sessionStorage.getItem('originUrl'));
        // append the id to the origin
        var fullUrl =  "https://surfly-s1.com".concat(sessionID)
-       console.log("the full url is: ", fullUrl);
        // open the follower link in the iframe 
        document.getElementById('ifrm1').src = fullUrl
+       console.log(document.getElementById('ifrm2').src);
       }
+    // on session joined- open a new session in second iframe?
    });
  });
 </script>
-
-<body>
-<p> hello :) </p>
-</body>
-
 </html>
 

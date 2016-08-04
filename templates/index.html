@@ -3,60 +3,20 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Untitled Document</title>
+<title>Hello</title>
 
-<style>
-.box{
-    width:50%;
-    float:left;
-    
-}
-</style>
 
 </head>
 
 <body>
 
-<div class="box"><iframe id="ifrm1" src="./first_frame" height="512" width="100%"></iframe></div>
-<div class="box"><iframe id="ifrm2" src="" height="512" width="100%" style="background: #000000;"></iframe></div>
-
+<button onclick="startSplitscreen()"> Start Split screen </button>
 
 <script>
-(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
-l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
-(window,document,'script','Surfly');
-</script>
 
-<script>
-var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
-var ifrm1_url = document.getElementById("ifrm1").src
-console.log("iframeurl", ifrm1_url);
-
-window.addEventListener('DOMContentLoaded', function() {
-  Surfly.init(settings, function(init) {
-    if (init.success) {
-       // start a surfly session with the red banner removed and on the url of the iframe
-       // Surfly.session({block_until_agent_joins: false, url: ifrm1_url}).startLeader('#ifrm1');
-       // console.log('the follower link is: ', Surfly.session().followerLink());
-       // Surfly.session({block_until_agent_joins: false})
-//	.on('session_created', function(session) {
-            // get the follower link and store this
-//	    console.log("the follower link is: ", session.followerLink);
-	    //sessionStorage.setItem("followerLink", session.followerLink);
-            // get the leader link and store this
-	   // console.log("the leader link is: ", session.leaderLink);
-            //sessionStorage.setItem("leaderLink", session.leaderLink);
-	 // })
-	//.startLeader('#ifrm1');
-     // this will show the whole page in one iframe again
-     // document.getElementById('ifrm1').src = sessionStorage.getItem("leaderLink");
-     }
-  });
-});
-
-//ec006650588b4726ac397ab5e56c033a
-
+function startSplitscreen() {
+    window.location.href = '/splitscreen'
+   }
 </script>
 
 </body>
