@@ -17,10 +17,6 @@ var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
-     // console.log("initialisation successful");
-     // Surfly.session().on('session_started', function(session) {
-     //  console.log("the follower link is ", session.followerLink);
-     //  })
      }
    });
  });
@@ -32,6 +28,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <button onclick="sessionStart()">Start session</button>
 
+
 <script>
   function sessionStart() {
      // starts a session with the specified options
@@ -41,7 +38,7 @@ window.addEventListener('DOMContentLoaded', function() {
         var followerLink = session.followerLink
         var linkIndex = followerLink.indexOf(".com");
         // store the ID
-        sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+4));
+        sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+4, linkIndex+16));
         // get the page url
         var pageUrl = document.location.href
         var pageIndex = pageUrl.indexOf("https");
@@ -56,9 +53,17 @@ window.addEventListener('DOMContentLoaded', function() {
          console.log('the session id is: ', sessionStorage.getItem("sessionID"));
          console.log('the page url is: ', sessionStorage.getItem("fullPageUrl"));
          console.log('the concatinated result is: ', res);
+         console.log('the saved url is:  ', sessionStorage.getItem('saveUrl'));
         }).startLeader();
    }
 </script>
+
+<script>
+   //function startFollower() {
+   // starts a follower session
+   //<button onclick="startFollower()">Start follower</button>
+</script>
+   
 
 </body>
 </html> 
