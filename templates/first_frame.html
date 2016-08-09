@@ -39,6 +39,8 @@ window.addEventListener('DOMContentLoaded', function() {
         var linkIndex = followerLink.indexOf(".com");
         // store the ID
         sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+4, linkIndex+16));
+        // we also store the first half
+        sessionStorage.setItem("originUrl", followerLink.substring(followerLink, linkIndex+4));
         // get the page url
         var pageUrl = document.location.href
         var pageIndex = pageUrl.indexOf("https");
@@ -46,24 +48,20 @@ window.addEventListener('DOMContentLoaded', function() {
         // store the page url
         sessionStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
         // append the page url to the session id
-        var res = sessionStorage.getItem("fullPageUrl").concat(sessionStorage.getItem("sessionID"));
+        var res = sessionStorage.getItem("fullPageUrl").concat('/splitscreen', sessionStorage.getItem("sessionID"));
         // save so we can use later
         sessionStorage.setItem("saveUrl", res);
         // check that we have what we want 
-         console.log('the session id is: ', sessionStorage.getItem("sessionID"));
-         console.log('the page url is: ', sessionStorage.getItem("fullPageUrl"));
-         console.log('the concatinated result is: ', res);
-         console.log('the saved url is:  ', sessionStorage.getItem('saveUrl'));
+         console.log('the link you need to open is :', res);
+         console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
+        })
+         .on('message', function(session, event) {
+           console.log("the event data is ", event.data);
+           console.log("the event source is", event.source);
         }).startLeader();
    }
 </script>
 
-<script>
-   //function startFollower() {
-   // starts a follower session
-   //<button onclick="startFollower()">Start follower</button>
-</script>
-   
 
 </body>
 </html> 

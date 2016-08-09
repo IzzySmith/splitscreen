@@ -12,14 +12,19 @@ def splitscreen():
 
 @app.route('/splitscreen/<session_id>')
 def index_session_id(session_id):
-   return render_template('follower_side.html')
+   return render_template('about.html')
 
-@app.route('/splitscreen/follower_leader_frame')
+@app.route('/splitscreen/third_frame')
 def splitscreen_test():
-   return render_template('follower_leader_frame.html')
+   return render_template('third_frame.html')
 
 @app.route('/first_frame')
 def first_frame():
    return render_template('first_frame.html')
+
+
+@app.route('/fourth_frame')
+def second_frame():
+   return render_template('/fourth_frame.html')
 
 
