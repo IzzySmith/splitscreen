@@ -1,95 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+<script type="text/javascript">(function(){window['_surfly_settings']=window['_surfly_settings']||{
+widgetkey:"dd402bb4940b4cf3a855aaa371d11419",
+apiserver:"https://surfly.com/v2/",
+};var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src="//surfly.com/static/js/widget.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n); })();</script>
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Untitled Document</title>
+  <title>Agents</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='theme.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap_changed.min.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-theme.min.css') }}">
 
-<style>
-.box{
-    width:50%;
-    float:left;
-    
-}
-</style>
+  </head>
 
+  <body>
+ 
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+       <div class="container">
+          <div class="navbar-header">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="{{ url_for('agents') }}">Example Website</a>
+           </div>
+        <div id="navbar" class="navbar-collapse collapse">
+           <ul class="nav navbar-nav">
+              <li><a href="{{ url_for('index') }}">Home</a></li>
+              <li><a href="{{ url_for('index') }}" id="agents_button">Order form</a></li>
+              <li class="active"><a href="{{ url_for('agents') }}">Agents</a></li>
+           </ul>
+        </div>
+     </div>
+   </nav>
 
-</head>
+   <div class="jumbotron">
+     <h1>Agents</h1>
+   </div>
 
-<body>
+   <div class="center_form">
+   <div class="page-header">
+     <h2>Completed Sales</h2>
+   </div>
+   <div class="center_from">
+     <div class="panel panel-success">
+       <h4 class="panel-title">Agents</h4>
+     </div>
+   </div>
+   <div class="center_form">
+     <div id="list_a"></div>
+   </div>
+   <div class="center_form">
+     <div class="panel panel-success">
+       <h4 class="panel-title">Sales count</h4>
+     </div>
+   </div>
+   <div class="center_form">
+     <div class="panel-body">
+   </div>
+   <div class="center_form">
+     <div id="list_c"></div>
+     </div>
+   </div>
+ </div>
+</div>
+  <script type="text/javascript">
+  function createTable(tableData) {
+  var table = document.createElement('table');
+  var tableBody = document.createElement('tbody');
 
-<div class="box"><iframe id="ifrm1" src="" height="512" width="100%"></iframe></div>
-<div class="box"><iframe id="ifrm2" src="./third_frame" height="512" width="100%" name="i2"></iframe></div>
+  tableData.forEach(function(rowData) {
+    var row = document.createElement('tr');
 
+    rowData.forEach(function(cellData) {
+      var cell = document.createElement('td');
+      cell.appendChild(document.createTextNode(cellData));
+      row.appendChild(cell);
+    });
 
-<script>
-(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
-l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
-(window,document,'script','Surfly');
-</script>
+    tableBody.appendChild(row);
+  });
 
-<script>
-var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a', block_until_agent_joins: false};
+  table.appendChild(tableBody);
+  document.body.appendChild(table);
+  }
+  var agents = sessionStorage.getItem('list_ag');
+  var arr_ag = agents.split(",");
+  var count = sessionStorage.getItem('list_co');
+  var arr_count = count.split(",");
+  var arr = [arr_ag, arr_count];
+  //createTable(arr);
 
-window.addEventListener('DOMContentLoaded', function() {
-  Surfly.init(settings, function(init) {
-    if (init.success) {
-       // get the current url
-       pageUrl  = document.location.href
-       // check what we have 
-       // console.log("the page url is: ", pageUrl);
-       // set the index at the end of the url
-       var idIndex = pageUrl.indexOf("screen");
-       // extract the session ID
-       var sessionID = pageUrl.substring(idIndex+6);
-       // console.log("the session id is: ", sessionID);
-       // retrieve the origin url - find out why this doesnt work
-       // console.log("the original url is: ", sessionStorage.getItem('originUrl'));
-       // append the id to the origin
-       var fullUrl =  "https://surfly-s1.com".concat(sessionID);
-       // set the url of the frame to the leader link
-       document.getElementById('ifrm1').src = fullUrl;
-      }
-   });
- });
-</script>
+  document.getElementById("list_a").innerHTML=agents;
+  document.getElementById("list_c").innerHTML=count;
+  </script>
 
-<script>
-// Here "addEventListener" is for standards-compliant web browsers and "attachEvent" is for IE Browsers.
-var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-var eventer = window[eventMethod];
-var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
-// Listen to message from child IFrame window
-eventer(messageEvent, function (e) {
-   var stringData = JSON.stringify(e.data);
-   if (typeof e.data === 'string') { 
-     if (e.data.match(/[0-9]{3}[-][0-9]{3}[-][0-9]{3}/) != null) {
-        localStorage.setItem('followerLink', e.data);
-     }
-   }
-}, false);
-
-var firstFrame = document.getElementById('ifrm1').contentWindow;
-firstFrame.postMessage('hello', '*');
-console.log('message sent');
-
-
-</script>
-
-<script>
-   function listener(event) {
-      console.log(event.data);
-      console.log(event.source);
-   }
-   window.top.addEventListener("message", listener, false)
-</script>
-
-
-</script>
-
-</html>
+  
+  </body>
+</html
 

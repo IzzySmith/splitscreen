@@ -5,63 +5,75 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Untitled Document</title>
 
-<script>
-(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
-l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
-(window,document,'script','Surfly');
-</script>
-
-<script>
-var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
-window.addEventListener('DOMContentLoaded', function() {
-  Surfly.init(settings, function(init) {
-    if (init.success) {
-     }
-   });
- });
-</script>
+<script type="text/javascript">(function(){window['_surfly_settings']=window['_surfly_settings']||{
+widgetkey:"b84defc4621441ecae5eb10bdec1cb5a",
+autohide_button: false,
+};
+var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://surfly.com/static/js/widget.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n); })();</script>
 
 </head>
 
 <body>
 
-<button onclick="sessionStart()">Start session</button>
-
-
 <script>
-  function sessionStart() {
-     // starts a session with the specified options
-     Surfly.session({block_until_agent_joins: false})
-       .on('session_created', function(session) {
-        // get the session id from the follower link
-        var followerLink = session.followerLink
-        var linkIndex = followerLink.indexOf(".com");
-        // store the ID
-        sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+4, linkIndex+16));
-        // we also store the first half
-        sessionStorage.setItem("originUrl", followerLink.substring(followerLink, linkIndex+4));
+
         // get the page url
         var pageUrl = document.location.href
         var pageIndex = pageUrl.indexOf("https");
         var pageEnd = pageUrl.indexOf("first_frame");
         // store the page url
-        sessionStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
+        localStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
         // append the page url to the session id
-        var res = sessionStorage.getItem("fullPageUrl").concat('/splitscreen', sessionStorage.getItem("sessionID"));
+        var res = localStorage.getItem("fullPageUrl").concat('/splitscreen/', sessionStorage.getItem("session_id"));
         // save so we can use later
-        sessionStorage.setItem("saveUrl", res);
+        localStorage.setItem("saveUrl", res);
         // check that we have what we want 
          console.log('the link you need to open is :', res);
-         console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
-        })
-         .on('message', function(session, event) {
-           console.log("the event data is ", event.data);
-           console.log("the event source is", event.source);
-        }).startLeader();
-   }
+        // console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
+
 </script>
 
+
+        <script>
+	// get session ID
+  	var request = new XMLHttpRequest();
+  	request.open('GET', 'https://api.surfly.com/v2/sessions/?api_key=ec006650588b4726ac397ab5e56c033a&active_session=true');
+  	request.onreadystatechange = function () {
+    	if (this.readyState === 4) {
+      		if(window.__surfly){
+        		var body = this.responseText;
+        		var index = body.indexOf("session_id");
+        		var index_end = body.indexOf("agent_id");
+        		var id = body.substring(index+14, index_end-3);
+                        console.log("the session id should be ", id);
+			sessionStorage.setItem("session_id", id);
+     	 	}
+    	   }
+  	};
+  	request.send();	
+   	</script>
+<script>
+var request = new XMLHttpRequest();
+
+request.open('GET', 'https://api.surfly.com/v2/sessions/'+sessionStorage.getItem('session_id')+'/?api_key=ec006650588b4726ac397ab5e56c033a');
+
+request.onreadystatechange = function () {
+  if (this.readyState === 4) {
+    if(window.__surfly){
+       var body = this.responseText;
+       var index = body.indexOf("viewer_link");
+       var index_end = body.indexOf("start_time");
+       var followerLink = body.substring(index+14, index_end-3);
+       console.log("the follower link is ", followerLink);
+       console.log("the body is ", body);
+       sessionStorage.setItem("follower_link", followerLink);
+    }
+  }
+};
+
+request.send();
+
+</script>
 
 </body>
 </html> 

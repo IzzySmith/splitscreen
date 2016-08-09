@@ -5,38 +5,65 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Untitled Document</title>
 
-<script>
-(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
-l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
-(window,document,'script','Surfly');
-</script>
+<script type="text/javascript">(function(){window['_surfly_settings']=window['_surfly_settings']||{
+widgetkey:"b84defc4621441ecae5eb10bdec1cb5a",
 
-<script>
-var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
-window.addEventListener('DOMContentLoaded', function() {
-  Surfly.init(settings, function(init) {
-    if (init.success) {
-      var session = Surfly.session({block_until_agent_joins: false}).on('session_started', function(session) {
-        //var retrievedLink = session.followerLink;
-        //window.parent.postMessage(retrievedLink, "*");
-        console.log("follower link ", session.followerLink);
-        var followerLink = session.followerLink
-        localStorage.setItem('followerLink', session.followerLink);
-     }).startLeader();
-     Surfly.session({url:'https://infinite-thicket-74820.herokuapp.com/fourth_frame'}, localStorage.getItem('followerLink'))
-        .startFollower(null, {}); 
-    }
-   });
- });
-</script>
+};
+var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://surfly.com/static/js/widget.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n); })();</script>
 
 </head>
 
 <body>
 
-<p> hello! </p>
+<p> hello! This is the third frame :)</p>
+
+<script>
+	// get session ID
+  	var request = new XMLHttpRequest();
+  	request.open('GET', 'https://api.surfly.com/v2/sessions/?api_key=ec006650588b4726ac397ab5e56c033a&active_session=true');
+  	request.onreadystatechange = function () {
+    	if (this.readyState === 4) {
+      		if(window.__surfly){
+        		var body = this.responseText;
+                        console.log("the body of the rest api is", body);
+        		var index = body.indexOf("viewer_link");
+        		var index_end = body.indexOf("start_time");
+        		var fLink = body.substring(index+14, index_end-3);
+                        console.log("the extracted viewer link is ", fLink);
+                        
+			sessionStorage.setItem("followerLink", fLink);
+                        console.log("are you empty", sessionStorage.getItem('followerLink'));
+     	 	}
+    	   }
+  	};
+  	request.send();	
+   	</script>
+
+<script>
+var followerL = sessionStorage.getItem('followerLink');
+var objectLink = JSON.parse(followerL);
+
+window.parent.postMessage("hello"+ followerL, "*");
+
+//window.postMessage({"command": "message", "data": "<helloooo>"}, '*');
+</script>
 
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

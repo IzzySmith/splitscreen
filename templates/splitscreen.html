@@ -20,37 +20,24 @@
 <div class="box"><iframe id="ifrm1" src="./first_frame" height="512" width="100%"></iframe></div>
 <div class="box"><iframe id="ifrm2" src="./fourth_frame" height="512" width="100%"></iframe></div>
 
-
 <script>
-(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
-l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
-(window,document,'script','Surfly');
+console.log("the stored session data is ", sessionStorage.getItem('followerLink'));
 </script>
 
 <script>
-var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
-var ifrm1_url = document.getElementById("ifrm1").src
-console.log("iframeurl", ifrm1_url);
-window.addEventListener('DOMContentLoaded', function() {
-  Surfly.init(settings, function(init) {
-    if (init.success) {
-     }
-  });
-});
+var request = new XMLHttpRequest();
 
-</script>
+request.open('DELETE', 'https://api.surfly.com/v2/sessions/fLes8raokR6uvA4Rs3OIHeg/?api_key=ec006650588b4726ac397ab5e56c033a');
 
+request.onreadystatechange = function () {
+  if (this.readyState === 4) {
+    console.log('Status:', this.status);
+    console.log('Headers:', this.getAllResponseHeaders());
+    console.log('Body:', this.responseText);
+  }
+};
 
-<script>
-//var fLink = localStorage.getItem('followerLink');
-//console.log("testing session storage ", fLink);
-//console.log("the src of the iframe is ", document.getElementById('ifrm2').src);
-
-//if (fLink != null) {
-//  document.getElementById('ifrm2').src = fLink;
-//} 
-
+request.send();
 </script>
 
 </body>

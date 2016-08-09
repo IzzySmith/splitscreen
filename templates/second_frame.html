@@ -5,21 +5,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Untitled Document</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
 <script type="text/javascript">(function(){window['_surfly_settings']=window['_surfly_settings']||{
 widgetkey:"b84defc4621441ecae5eb10bdec1cb5a",
-/*
-add your custom options here
-*/
+hidden: true,
+cookie_transfer_enabled: true,
 };
 var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://surfly.com/static/js/widget.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n); })();</script>
 
-
 </head>
-
 <body>
 
+<script>
+window.addEventListener("message", function(e){
+   console.log("the retrieved data is ", e.data);
+}, false);
+</script>
 
+<script>
+//console.log("the stored session data is ", sessionStorage.getItem('followerLink'));
+</script>
 </body>
 </html>
+
