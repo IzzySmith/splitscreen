@@ -24,21 +24,6 @@
 console.log("the stored session data is ", sessionStorage.getItem('followerLink'));
 </script>
 
-<script>
-var request = new XMLHttpRequest();
-
-request.open('DELETE', 'https://api.surfly.com/v2/sessions/fLes8raokR6uvA4Rs3OIHeg/?api_key=ec006650588b4726ac397ab5e56c033a');
-
-request.onreadystatechange = function () {
-  if (this.readyState === 4) {
-    console.log('Status:', this.status);
-    console.log('Headers:', this.getAllResponseHeaders());
-    console.log('Body:', this.responseText);
-  }
-};
-
-request.send();
-</script>
 
 </body>
 
