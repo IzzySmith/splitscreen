@@ -26,7 +26,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
         		var body = this.responseText;
         		var index = body.indexOf("session_id");
         		var index_end = body.indexOf("agent_id");
-        		var id = body.substring(index+14, index_end-3);
+        		var id = body.substring(index+13, index_end-3);
 			console.log("body1 ", body);
                         console.log("the session id should be ", id);
 
