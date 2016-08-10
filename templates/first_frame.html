@@ -16,28 +16,32 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 <body>
 
         <script>
-	var s_id;
-	// get session ID
-  	var request = new XMLHttpRequest();
-  	request.open('GET', 'https://api.surfly.com/v2/sessions/?api_key=ec006650588b4726ac397ab5e56c033a&active_session=true');
-  	request.onreadystatechange = function () {
-    	if (this.readyState === 4) {
-      		if(window.__surfly){
-        		var body = this.responseText;
-        		var index = body.indexOf("session_id");
-        		var index_end = body.indexOf("agent_id");
-        		var id = body.substring(index+13, index_end-3);
-			console.log("body1 ", body);
-                        console.log("the session id should be ", id);
+	//var s_id;
+	
+	function test(){
+		// get session ID
+	  	var request = new XMLHttpRequest();
+	  	request.open('GET', 'https://api.surfly.com/v2/sessions/?api_key=ec006650588b4726ac397ab5e56c033a&active_session=true');
+	  	request.onreadystatechange = function () {
+	    	if (this.readyState === 4) {
+	      		if(window.__surfly){
+	        		var body = this.responseText;
+	        		var index = body.indexOf("session_id");
+	        		var index_end = body.indexOf("agent_id");
+	        		var id = body.substring(index+13, index_end-3);
+				console.log("body1 ", body);
+		                console.log("the session id should be ", id);
 
-			s_id = id;
-			//sessionStorage.setItem("id", id);
-     	 	}
-    	   }
-  	};
-  	request.send();	
+				s_id = id;
+				//console.log("s_id :" + window.s_id);
+				//sessionStorage.setItem("id", id);
+	     	 	}
+	    	   }
+	  	};
+	  	request.send();	
+	}
 
-	console.log("s_id :" + window.s_id);
+	console.log("s_id :" + s_id);
 
 	if(window.__surfly){
 		var request = new XMLHttpRequest();
