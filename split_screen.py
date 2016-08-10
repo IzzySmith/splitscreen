@@ -22,9 +22,13 @@ def splitscreen_test():
 def first_frame():
    return render_template('first_frame.html')
 
+@app.route('/second_frame')
+def second_frame():
+   return render_template('/second_frame.html')
+
 
 @app.route('/fourth_frame')
-def second_frame():
+def fourth_frame():
    return render_template('/fourth_frame.html')
 
 

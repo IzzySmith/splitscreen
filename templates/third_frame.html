@@ -8,27 +8,40 @@
 <script>
 (function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
 l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
+l.src='https://surfly-s1.com/surfly.js';y.parentNode.insertBefore(l,y);})
 (window,document,'script','Surfly');
 </script>
 
 <script>
+
+getLink();
+
+
+function getLink() {
 var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
       var session = Surfly.session({block_until_agent_joins: false}).on('session_started', function(session) {
-        //var retrievedLink = session.followerLink;
-        //window.parent.postMessage(retrievedLink, "*");
-        console.log("follower link ", session.followerLink);
-        var followerLink = session.followerLink
-        localStorage.setItem('followerLink', session.followerLink);
-     }).startLeader();
-     Surfly.session({url:'https://infinite-thicket-74820.herokuapp.com/fourth_frame'}, localStorage.getItem('followerLink'))
-        .startFollower(null, {}); 
+        retrievedLink = session.followerLink;
+        console.log("the type of the retrieved link is ", typeof retrievedLink);
+        window.parent.postMessage(retrievedLink, "*");
+        //console.log("follower link ", session.followerLink);
+        //var followerLink = session.followerLink
+        //localStorage.setItem('followerLink', session.followerLink);
+     }).startLeader(); 
     }
    });
  });
+ 
+}
+
+// if (retrievedLink != null) {
+//  window.parent.postMessage(retrievedLink, "*");
+// } else {
+//  console.log("the link was null");
+// }
+
 </script>
 
 </head>

@@ -1,12 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Untitled Document</title>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <script>
 (function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
@@ -16,20 +13,42 @@ l.src='https://surfly-s1.com/surfly.js';y.parentNode.insertBefore(l,y);})
 </script>
 
 <script>
+
 var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
+      Surfly.session()
+       .on('message', function(session, event) {
+      console.log('page from the session says:', event.data);
+     });
     }
    });
  });
+
 </script>
 
-
 </head>
-
 <body>
+
+<script>
+   function listener(event) {
+      console.log('the event recieved by the second page is ', event.data);
+      console.log('the source recieved by the second page is ', event.source);
+   }
+   window.addEventListener("message", listener, false)
+</script>
+
+<script>
+
+    // message handler
+//    window.addEventListener('message', function(e) {
+//        console.log("the copy pasted example sent us", e.data);
+//    }, false);
+
+</script>
 
 
 </body>
 </html>
+

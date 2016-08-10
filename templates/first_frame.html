@@ -8,7 +8,7 @@
 <script>
 (function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
 l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
+l.src='https://surfly-s1.com/surfly.js';y.parentNode.insertBefore(l,y);})
 (window,document,'script','Surfly');
 </script>
 
@@ -17,6 +17,29 @@ var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
+      Surfly.session().on('session_started', function(session) {
+      session.sendMessage({foo: 'bar'}, "*");
+      // get the session id from the follower link
+        var followerLink = session.followerLink
+        var linkIndex = followerLink.indexOf(".com");
+        // store the ID
+        sessionStorage.setItem("sessionID", followerLink.substring(linkIndex+4, linkIndex+16));
+        // we also store the first half
+        sessionStorage.setItem("originUrl", followerLink.substring(followerLink, linkIndex+4));
+        // get the page url
+        var pageUrl = document.location.href
+        var pageIndex = pageUrl.indexOf("https");
+        var pageEnd = pageUrl.indexOf("first_frame");
+        // store the page url
+        sessionStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
+        // append the page url to the session id
+        var res = sessionStorage.getItem("fullPageUrl").concat('/splitscreen', sessionStorage.getItem("sessionID"));
+        // save so we can use later
+        sessionStorage.setItem("saveUrl", res);
+        // check that we have what we want 
+         console.log('the link you need to open is :', res);
+         console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
+     }).startLeader();
      }
    });
  });
@@ -26,10 +49,12 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <body>
 
+<!--
 <button onclick="sessionStart()">Start session</button>
-
+-->
 
 <script>
+/*
   function sessionStart() {
      // starts a session with the specified options
      Surfly.session({block_until_agent_joins: false})
@@ -60,8 +85,22 @@ window.addEventListener('DOMContentLoaded', function() {
            console.log("the event source is", event.source);
         }).startLeader();
    }
+*/
 </script>
 
+<script>
+if (Surfly.currentSession) {
+  Surfly.currentSession.on('message', function (session, event) {
+    if (event.origin === window.location.origin) {
+      console.log('outer window says:', event.data);
+    } else {
+      console.log("outer window has a different origin");
+    }
+  });
+} else {
+ console.log("surfly.currentsession is false!);
+}
+</script>
 
 </body>
 </html> 

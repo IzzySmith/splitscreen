@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,20 +21,22 @@
 
 <body>
 
-<div class="box"><iframe id="ifrm1" src="" height="512" width="100%"></iframe></div>
+<div class="box"><iframe id="ifrm1" src="./second_frame" height="512" width="100%"></iframe></div>
 <div class="box"><iframe id="ifrm2" src="./third_frame" height="512" width="100%" name="i2"></iframe></div>
 
 
 <script>
 (function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
 l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
-l.src='https://x.zok.pw/new-widget-s1.js';y.parentNode.insertBefore(l,y);})
+l.src='https://surfly-s1.com/surfly.js';y.parentNode.insertBefore(l,y);})
 (window,document,'script','Surfly');
 </script>
 
-<script>
-var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a', block_until_agent_joins: false};
 
+<script>
+// the old code for opening the follower link in the first iframe on this page
+
+var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a', block_until_agent_joins: false};
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
@@ -55,6 +58,7 @@ window.addEventListener('DOMContentLoaded', function() {
       }
    });
  });
+
 </script>
 
 <script>
@@ -62,34 +66,33 @@ window.addEventListener('DOMContentLoaded', function() {
 var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
 var eventer = window[eventMethod];
 var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
 // Listen to message from child IFrame window
 eventer(messageEvent, function (e) {
    var stringData = JSON.stringify(e.data);
+  // console.log("the stringData that was sent to the back was", stringData);
    if (typeof e.data === 'string') { 
+     // we use a regex to match the follower link and extract it from the data 
      if (e.data.match(/[0-9]{3}[-][0-9]{3}[-][0-9]{3}/) != null) {
-        localStorage.setItem('followerLink', e.data);
+       // localStorage.setItem('followerLink', e.data);
+       //console.log("the retrieved message from the third frame is ", e.data);
      }
    }
 }, false);
+
 
 var firstFrame = document.getElementById('ifrm1').contentWindow;
 firstFrame.postMessage('hello', '*');
 console.log('message sent');
 
-
 </script>
 
 <script>
    function listener(event) {
-      console.log(event.data);
-      console.log(event.source);
+    //  console.log('the event from the function listener is ', event.data);
+   //   console.log('the source from the function listener is ', event.source);
    }
-   window.top.addEventListener("message", listener, false)
+   window.addEventListener("message", listener, false)
 </script>
 
-
-</script>
 
 </html>
-
