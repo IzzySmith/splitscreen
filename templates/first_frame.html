@@ -66,8 +66,6 @@ if(window.__surfly){
 
 	if(sessionStorage.getItem("id")!==null){
 
-		var test = pageUrl.substring(pageIndex, pageEnd-1)).concat('/splitscreen/', sessionStorage.getItem("id"));
-		console.log("Test "+test);
 		// store the page url
 		localStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
 		// append the page url to the session id
