@@ -12,7 +12,7 @@ def splitscreen():
 
 @app.route('/splitscreen/<session_id>')
 def index_session_id(session_id):
-   return render_template('about.html')
+   return render_template('follower_side.html')
 
 @app.route('/splitscreen/third_frame')
 def splitscreen_test():

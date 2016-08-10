@@ -18,7 +18,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 <script>
 
         // get the page url
-        var pageUrl = document.location.href
+        var pageUrl = document.location.href;
         var pageIndex = pageUrl.indexOf("https");
         var pageEnd = pageUrl.indexOf("first_frame");
         // store the page url
@@ -28,7 +28,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
         // save so we can use later
         localStorage.setItem("saveUrl", res);
         // check that we have what we want 
-         console.log('the link you need to open is :', res);
+         console.log('the link you need to open is :', localStorage.getItem("saveUrl"));
         // console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
 
 </script>
@@ -53,26 +53,27 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
   	request.send();	
    	</script>
 <script>
-var request = new XMLHttpRequest();
+if(window.__surfly){
+	var request = new XMLHttpRequest();
 
-request.open('GET', 'https://api.surfly.com/v2/sessions/'+sessionStorage.getItem('session_id')+'/?api_key=ec006650588b4726ac397ab5e56c033a');
+	request.open('GET', 'https://api.surfly.com/v2/sessions/'+sessionStorage.getItem("session_id")+'/?api_key=ec006650588b4726ac397ab5e56c033a');
 
-request.onreadystatechange = function () {
-  if (this.readyState === 4) {
-    if(window.__surfly){
-       var body = this.responseText;
-       var index = body.indexOf("viewer_link");
-       var index_end = body.indexOf("start_time");
-       var followerLink = body.substring(index+14, index_end-3);
-       console.log("the follower link is ", followerLink);
-       console.log("the body is ", body);
-       sessionStorage.setItem("follower_link", followerLink);
-    }
-  }
-};
+	request.onreadystatechange = function () {
+	  if (this.readyState === 4) {
+	    if(window.__surfly){
+	       var body = this.responseText;
+	       var index = body.indexOf("viewer_link");
+	       var index_end = body.indexOf("start_time");
+	       var followerLink = body.substring(index+14, index_end-3);
+	       console.log("the follower link is ", followerLink);
+	       console.log("the body is ", body);
+	       sessionStorage.setItem("follower_link", followerLink);
+	    }
+	  }
+	};
 
-request.send();
-
+	request.send();
+}
 </script>
 
 </body>
