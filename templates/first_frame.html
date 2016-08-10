@@ -50,7 +50,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 		       var body = this.responseText;
 		       var index = body.indexOf("viewer_link");
 		       var index_end = body.indexOf("start_time");
-		       var followerLink = body.substring(index+14, index_end-3);
+		       var followerLink = body.substring(index+13, index_end-3);
 		       console.log("the follower link is ", followerLink);
 		       console.log("the body is ", body);
 

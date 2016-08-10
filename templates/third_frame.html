@@ -29,7 +29,7 @@ var flink = "";
                         console.log("the body of the rest api is", body);
         		var index = body.indexOf("viewer_link");
         		var index_end = body.indexOf("start_time");
-        		var fLink = body.substring(index+14, index_end-3);
+        		var fLink = body.substring(index+13, index_end-3);
                         console.log("the extracted viewer link is ", fLink);
 			var flink = fLink;
                         
