@@ -40,8 +40,10 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 	  	};
 	  	request.send();	
 	}
-
-	console.log("s_id :" + s_id);
+	
+	if(s_id!==undefined){
+		console.log("s_id :" + s_id);	
+	}
 
 	if(window.__surfly){
 		var request = new XMLHttpRequest();
