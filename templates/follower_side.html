@@ -6,7 +6,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Untitled Document</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+(function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
+l=u.createElement(r);y=u.getElementsByTagName(r)[0];l.async=1;
+l.src='https://surfly-s1.com/surfly.js';y.parentNode.insertBefore(l,y);})
+(window,document,'script','Surfly');
+</script>
+
+<script>
+
+var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
+window.addEventListener('DOMContentLoaded', function() {
+  Surfly.init(settings, function(init) {
+    if (init.success) {
+      if(!Surfly.currentSession){
+      Surfly.session()
+      .on('session_created', function(session) {
+         session.sendMessage({foo: 'bar'}, '*');
+      }).create();
+     }
+    }
+   });
+ });
+
+</script>
 
 <style>
 .box{
@@ -21,9 +44,10 @@
 
 <body>
 
-<div class="box"><iframe id="ifrm1" src="./second_frame" height="512" width="100%"></iframe></div>
+<div class="box"><iframe id="ifrm1" src="./second_frame" height="512" width="100%" ></iframe></div>
 <div class="box"><iframe id="ifrm2" src="./third_frame" height="512" width="100%" name="i2"></iframe></div>
 
+<div id="testLink"><p>hello</p></div>
 
 <script>
 (function(s,u,r,f,l,y){s[f]=s[f]||{init:function(){s[f].q=arguments}};
@@ -32,6 +56,23 @@ l.src='https://surfly-s1.com/surfly.js';y.parentNode.insertBefore(l,y);})
 (window,document,'script','Surfly');
 </script>
 
+<script>
+var iframe = document.getElementById('ifrm1');
+iframe = iframe.contentWindow ? 
+         iframe.contentWindow : 
+         (
+             iframe.contentDocument.document ?
+             iframe.contentDocument.document : 
+             iframe.contentDocument
+         );
+iframe.document.open();
+iframe.document.write('hello!');
+iframe.document.close();
+</script>
+
+<script>
+document.getElementById('myFrame').contentWindow.myFunction();
+</script>
 
 <script>
 // the old code for opening the follower link in the first iframe on this page
@@ -53,8 +94,9 @@ window.addEventListener('DOMContentLoaded', function() {
        // console.log("the original url is: ", sessionStorage.getItem('originUrl'));
        // append the id to the origin
        var fullUrl =  "https://surfly-s1.com".concat(sessionID);
+       localStorage.setItem("firstFollower", fullUrl);
        // set the url of the frame to the leader link
-       document.getElementById('ifrm1').src = fullUrl;
+       // document.getElementById('ifrm1').src = fullUrl;
       }
    });
  });
@@ -62,6 +104,7 @@ window.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
+
 // Here "addEventListener" is for standards-compliant web browsers and "attachEvent" is for IE Browsers.
 var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
 var eventer = window[eventMethod];
@@ -74,24 +117,32 @@ eventer(messageEvent, function (e) {
      // we use a regex to match the follower link and extract it from the data 
      if (e.data.match(/[0-9]{3}[-][0-9]{3}[-][0-9]{3}/) != null) {
        // localStorage.setItem('followerLink', e.data);
-       //console.log("the retrieved message from the third frame is ", e.data);
+       console.log("the retrieved message from the third frame is ", e.data);
+       var linkF = e.data;
+       // append the link as text into a div
+       // var textLinkF = document.createTextNode(linkF);     
+       var createDiv = document.getElementById('testLink');
+       createDiv.innerHTML = createDiv.innerHTML + linkF;
+       localStorage.setItem("theFollowerLink", linkF);
      }
    }
-}, false);
+ }, false);
 
 
-var firstFrame = document.getElementById('ifrm1').contentWindow;
+
+//var firstFrame = document.getElementById('ifrm1').contentWindow;
+var firstFrame = 
 firstFrame.postMessage('hello', '*');
-console.log('message sent');
 
+console.log("the domain of the about page is ", document.domain);
 </script>
 
 <script>
-   function listener(event) {
-    //  console.log('the event from the function listener is ', event.data);
-   //   console.log('the source from the function listener is ', event.source);
-   }
-   window.addEventListener("message", listener, false)
+  // function listener(event) {
+  //    console.log('the event recieved from the third frame by the function listener is ', event.data);
+  //    console.log('the source of the events as picked up by the function listener is ', event.source);
+  // }
+  // window.addEventListener("message", listener, false)
 </script>
 
 

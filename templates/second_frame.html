@@ -18,10 +18,8 @@ var settings = {widgetkey:'b84defc4621441ecae5eb10bdec1cb5a'};
 window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
-      Surfly.session()
-       .on('message', function(session, event) {
-      console.log('page from the session says:', event.data);
-     });
+       //Surfly.currentSession.sendMessage({foo: localStorage.getItem("theFollowerLink")}, '*');
+       Surfly.session(null, localStorage.getItem('firstFollower').startFollower().sendMessage({foo: localStorage.getItem("theFollowerLink")}, '*');;
     }
    });
  });
@@ -40,14 +38,12 @@ window.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-
-    // message handler
-//    window.addEventListener('message', function(e) {
-//        console.log("the copy pasted example sent us", e.data);
-//    }, false);
-
+   console.log("the content of the div from the parent window is ", parent.document.getElementById('testLink'));
+   console.log("the location of the second page is", window.location.href);
+   console.log("the domain of the second frame is ", document.domain);
+   console.log("the parent of the second frame is ", parent.document);
+   console.log("cheeseface is ", localStorage.getItem("theFollowerLink"));
 </script>
-
 
 </body>
 </html>

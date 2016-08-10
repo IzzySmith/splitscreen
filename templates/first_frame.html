@@ -18,7 +18,6 @@ window.addEventListener('DOMContentLoaded', function() {
   Surfly.init(settings, function(init) {
     if (init.success) {
       Surfly.session().on('session_started', function(session) {
-      session.sendMessage({foo: 'bar'}, "*");
       // get the session id from the follower link
         var followerLink = session.followerLink
         var linkIndex = followerLink.indexOf(".com");
@@ -39,7 +38,10 @@ window.addEventListener('DOMContentLoaded', function() {
         // check that we have what we want 
          console.log('the link you need to open is :', res);
          console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
-     }).startLeader();
+      })
+         .on('message', function(session, event) {
+         console.log('page from the session says:', event.data);
+     }).startLeader();
      }
    });
  });
@@ -88,19 +90,6 @@ window.addEventListener('DOMContentLoaded', function() {
 */
 </script>
 
-<script>
-if (Surfly.currentSession) {
-  Surfly.currentSession.on('message', function (session, event) {
-    if (event.origin === window.location.origin) {
-      console.log('outer window says:', event.data);
-    } else {
-      console.log("outer window has a different origin");
-    }
-  });
-} else {
- console.log("surfly.currentsession is false!);
-}
-</script>
 
 </body>
 </html> 
