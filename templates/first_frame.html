@@ -15,25 +15,6 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 
 <body>
 
-<script>
-
-        // get the page url
-        var pageUrl = document.location.href;
-        var pageIndex = pageUrl.indexOf("https");
-        var pageEnd = pageUrl.indexOf("first_frame");
-        // store the page url
-        localStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
-        // append the page url to the session id
-        var res = localStorage.getItem("fullPageUrl").concat('/splitscreen/', sessionStorage.getItem("id"));
-        // save so we can use later
-        localStorage.setItem("saveUrl", res);
-        // check that we have what we want 
-         console.log('the link you need to open is :', localStorage.getItem("saveUrl"));
-        // console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
-
-</script>
-
-
         <script>
 	// get session ID
   	var request = new XMLHttpRequest();
@@ -74,6 +55,30 @@ if(window.__surfly){
 
 	request.send();
 }
+</script>
+
+<script>
+
+        // get the page url
+        var pageUrl = document.location.href;
+        var pageIndex = pageUrl.indexOf("https");
+        var pageEnd = pageUrl.indexOf("first_frame");
+
+	if(sessionStorage.getItem("id")!==null){
+
+		var test = pageUrl.substring(pageIndex, pageEnd-1)).concat('/splitscreen/', sessionStorage.getItem("id"));
+		console.log("Test "+test);
+		// store the page url
+		localStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
+		// append the page url to the session id
+		var res = localStorage.getItem("fullPageUrl").concat('/splitscreen/', sessionStorage.getItem("id"));
+		// save so we can use later
+		localStorage.setItem("saveUrl", res);
+		// check that we have what we want 
+		 console.log('the link you need to open is :', localStorage.getItem("saveUrl"));
+		// console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
+	}
+
 </script>
 
 </body>
