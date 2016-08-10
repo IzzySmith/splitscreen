@@ -18,6 +18,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 <p> hello! This is the third frame :)</p>
 
 <script>
+var flink = "";
 	// get session ID
   	var request = new XMLHttpRequest();
   	request.open('GET', 'https://api.surfly.com/v2/sessions/?api_key=ec006650588b4726ac397ab5e56c033a&active_session=true');
@@ -30,9 +31,10 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
         		var index_end = body.indexOf("start_time");
         		var fLink = body.substring(index+14, index_end-3);
                         console.log("the extracted viewer link is ", fLink);
+			var flink = fLink;
                         
-			sessionStorage.setItem("fl", fLink);
-                        console.log("are you empty", sessionStorage.getItem("fl"));
+			//sessionStorage.setItem("fl", fLink);
+                        //console.log("are you empty", sessionStorage.getItem("fl"));
      	 	}
     	   }
   	};
@@ -40,10 +42,10 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
    	</script>
 
 <script>
-var followerL = sessionStorage.getItem('fl');
-var objectLink = JSON.parse(followerL);
+//var followerL = sessionStorage.getItem('fl');
+var objectLink = JSON.parse(flink);
 
-window.parent.postMessage("hello"+ followerL, "*");
+window.parent.postMessage("hello"+ flink, "*");
 
 //window.postMessage({"command": "message", "data": "<helloooo>"}, '*');
 </script>

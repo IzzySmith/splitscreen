@@ -16,6 +16,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 <body>
 
         <script>
+	var s_id = "";
 	// get session ID
   	var request = new XMLHttpRequest();
   	request.open('GET', 'https://api.surfly.com/v2/sessions/?api_key=ec006650588b4726ac397ab5e56c033a&active_session=true');
@@ -27,53 +28,50 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
         		var index_end = body.indexOf("agent_id");
         		var id = body.substring(index+14, index_end-3);
                         console.log("the session id should be ", id);
-			sessionStorage.setItem("id", id);
+
+			s_id = id;
+			//sessionStorage.setItem("id", id);
      	 	}
     	   }
   	};
   	request.send();	
-   	</script>
-<script>
-if(window.__surfly){
-	var request = new XMLHttpRequest();
 
-	request.open('GET', 'https://api.surfly.com/v2/sessions/'+sessionStorage.getItem("id")+'/?api_key=ec006650588b4726ac397ab5e56c033a');
+	console.log("s_id :" + s_id);
 
-	request.onreadystatechange = function () {
-	  if (this.readyState === 4) {
-	    if(window.__surfly){
-	       var body = this.responseText;
-	       var index = body.indexOf("viewer_link");
-	       var index_end = body.indexOf("start_time");
-	       var followerLink = body.substring(index+14, index_end-3);
-	       console.log("the follower link is ", followerLink);
-	       console.log("the body is ", body);
-	       sessionStorage.setItem("follower_link", followerLink);
-	    }
-	  }
-	};
+	if(window.__surfly){
+		var request = new XMLHttpRequest();
 
-	request.send();
-}
-</script>
+		request.open('GET', 'https://api.surfly.com/v2/sessions/'+s_id+'/?api_key=ec006650588b4726ac397ab5e56c033a');
 
-<script>
+		request.onreadystatechange = function () {
+		  if (this.readyState === 4) {
+		    if(window.__surfly){
+		       var body = this.responseText;
+		       var index = body.indexOf("viewer_link");
+		       var index_end = body.indexOf("start_time");
+		       var followerLink = body.substring(index+14, index_end-3);
+		       console.log("the follower link is ", followerLink);
+		       console.log("the body is ", body);
+		       sessionStorage.setItem("follower_link", followerLink);
+		    }
+		  }
+		};
+
+		request.send();
+	}
 
         // get the page url
         var pageUrl = document.location.href;
         var pageIndex = pageUrl.indexOf("https");
         var pageEnd = pageUrl.indexOf("first_frame");
 
-	if(sessionStorage.getItem("id")!==null){
-
+	if(s_id!==""){
 		// store the page url
-		localStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
+		var fullPageUrl = pageUrl.substring(pageIndex, pageEnd-1));
 		// append the page url to the session id
-		var res = localStorage.getItem("fullPageUrl").concat('/splitscreen/', sessionStorage.getItem("id"));
-		// save so we can use later
-		localStorage.setItem("saveUrl", res);
+		var res = fullPageUrl.concat('/splitscreen/', s_id);
 		// check that we have what we want 
-		 console.log('the link you need to open is :', localStorage.getItem("saveUrl"));
+		 console.log('the link you need to open is :', res);
 		// console.log('the origin Url is: ', sessionStorage.getItem("originUrl"));
 	}
 

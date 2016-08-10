@@ -53,12 +53,13 @@ var eventer = window[eventMethod];
 var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
 // Listen to message from child IFrame window
+var fl2 = "";
 
 eventer(messageEvent, function (e) {
    var stringData = JSON.stringify(e.data);
    if (typeof e.data === 'string') { 
      if (e.data.match(/[0-9]{3}[-][0-9]{3}[-][0-9]{3}/) != null) {
-        sessionStorage.setItem('followerLink', e.data);
+       fl2 = e.data;
      }
    }
 }, false);
@@ -66,16 +67,16 @@ eventer(messageEvent, function (e) {
 //var firstFrame = document.getElementById('ifrm2').contentWindow;
 //firstFrame.postMessage('hello', '*');
 //console.log('message sent');
-
+console.log("fl2" + fl2);
 
 </script>
 
 <script>
    function listener(event) {
-     console.log(event.data);
+     console.log("listener"+event.data);
      console.log(event.source);
   }
-  window.top.addEventListener("message", listener, false)
+  window.addEventListener("message", listener, false)
 </script>
 
 
