@@ -24,7 +24,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
         // store the page url
         localStorage.setItem("fullPageUrl", pageUrl.substring(pageIndex, pageEnd-1));
         // append the page url to the session id
-        var res = localStorage.getItem("fullPageUrl").concat('/splitscreen/', sessionStorage.getItem("session_id"));
+        var res = localStorage.getItem("fullPageUrl").concat('/splitscreen/', sessionStorage.getItem("id"));
         // save so we can use later
         localStorage.setItem("saveUrl", res);
         // check that we have what we want 
@@ -46,7 +46,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
         		var index_end = body.indexOf("agent_id");
         		var id = body.substring(index+14, index_end-3);
                         console.log("the session id should be ", id);
-			sessionStorage.setItem("session_id", id);
+			sessionStorage.setItem("id", id);
      	 	}
     	   }
   	};
@@ -56,7 +56,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
 if(window.__surfly){
 	var request = new XMLHttpRequest();
 
-	request.open('GET', 'https://api.surfly.com/v2/sessions/'+sessionStorage.getItem("session_id")+'/?api_key=ec006650588b4726ac397ab5e56c033a');
+	request.open('GET', 'https://api.surfly.com/v2/sessions/'+sessionStorage.getItem("id")+'/?api_key=ec006650588b4726ac397ab5e56c033a');
 
 	request.onreadystatechange = function () {
 	  if (this.readyState === 4) {

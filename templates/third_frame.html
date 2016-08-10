@@ -31,8 +31,8 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
         		var fLink = body.substring(index+14, index_end-3);
                         console.log("the extracted viewer link is ", fLink);
                         
-			sessionStorage.setItem("followerLink", fLink);
-                        console.log("are you empty", sessionStorage.getItem('followerLink'));
+			sessionStorage.setItem("fl", fLink);
+                        console.log("are you empty", sessionStorage.getItem('fl'));
      	 	}
     	   }
   	};
@@ -40,7 +40,7 @@ var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src
    	</script>
 
 <script>
-var followerL = sessionStorage.getItem('followerLink');
+var followerL = sessionStorage.getItem('fl');
 var objectLink = JSON.parse(followerL);
 
 window.parent.postMessage("hello"+ followerL, "*");
